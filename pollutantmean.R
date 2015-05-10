@@ -21,14 +21,21 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   idx <- 1L
   for (i in id) {
     file <- paste0(directory,'/',files[i])
+    # cat (file, "\n")
     buf <- read.csv(file, head=TRUE, sep=",")
-    len <- nrow(buf)
-    for (j in 1:len) {
-      n <- buf[j,pollutant]
-      tmp[idx] <- n
-      idx <- idx + 1
-      #cat ("i=",i," j=",j," n=",n,"idx=",idx,"\n")
-    }
+    
+    # VERY VERY VERY SLOW
+    #len <- nrow(buf)
+    #for (j in 1:len) {
+    #  n <- buf[j,pollutant]
+    #  tmp[idx] <- n
+    #  idx <- idx + 1
+    #  #cat ("i=",i," j=",j," n=",n,"idx=",idx,"\n")
+    #}
+   
+    # Replace with this - 1000 x faster
+    tmp <- c(tmp,buf[,pollutant])
+
   }
   return(mean(tmp, na.rm=TRUE))  
 }
