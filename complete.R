@@ -15,7 +15,6 @@ complete <- function(directory, id = 1:332) {
   ## where 'id' is the monitor ID number and 'nobs' is the
   ## number of complete cases
 
-  setwd(directory);
   files <- list.files(path = directory)
 
   siz_vec <- vector()
@@ -23,8 +22,8 @@ complete <- function(directory, id = 1:332) {
   idx <- 1L
 
   for (i in id) {
-    #file <- paste0(i , ".csv")   
-    buf <- read.csv(files[i], head=TRUE, sep=",")
+    file <- paste0(directory,'/',files[i])
+    buf <- read.csv(file, head=TRUE, sep=",")
     buf <- buf[complete.cases(buf),]
     siz <- nrow(buf)
     siz_vec[idx] <- siz

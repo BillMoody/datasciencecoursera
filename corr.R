@@ -12,13 +12,13 @@ corr <- function(directory, threshold = 0) {
   ## Return a numeric vector of correlations
   ## NOTE: Do not round the result!
 
-  setwd(directory);
   files <- list.files(path = directory)
 
   tmp <- vector() 
  
   for (f in files) {
-    buf <- read.csv(f, head=TRUE, sep=",")
+    file <- paste0(directory,'/',f)
+    buf <- read.csv(file, head=TRUE, sep=",")
     buf <- buf[complete.cases(buf),]    
     nobs <- nrow(buf)
     if (nobs > threshold) {

@@ -15,14 +15,13 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   ## in the 'id' vector (ignoring NA values)
   ## NOTE: Do not round the result!
 
-  setwd(directory);
-
   files <- list.files(path = directory)
  
   tmp <- vector() 
   idx <- 1L
   for (i in id) {
-    buf <- read.csv(files[i], head=TRUE, sep=",")
+    file <- paste0(directory,'/',files[i])
+    buf <- read.csv(file, head=TRUE, sep=",")
     len <- nrow(buf)
     for (j in 1:len) {
       n <- buf[j,pollutant]

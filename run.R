@@ -1,5 +1,6 @@
 #!/usr/bin/Rscript
-dir="/home/bill/lab/specdata"
+setwd("/home/bill/Coursera/r")
+dir="specdata"
 
 source("pollutantmean.R");
 source("complete.R");
