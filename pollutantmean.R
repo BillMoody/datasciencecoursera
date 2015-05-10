@@ -1,18 +1,25 @@
 #!/usr/bin/Rscript
 
 pollutantmean <- function(directory, pollutant, id = 1:332) {
+  ## 'directory' is a character vector of length 1 indicating
+  ## the location of the CSV files
+
+  ## 'pollutant' is a character vector of length 1 indicating
+  ## the name of the pollutant for which we will calculate the
+  ## mean; either "sulfate" or "nitrate".
+
+  ## 'id' is an integer vector indicating the monitor ID numbers
+  ## to be used
+
+  ## Return the mean of the pollutant across all monitors list
+  ## in the 'id' vector (ignoring NA values)
+  ## NOTE: Do not round the result!
 
   setwd(directory);
 
   files <- list.files(path = directory)
  
-  # ??? 
-  # I want tmo to be a list()
-  # tmp <- list() gives me a list of lists as I go thru the loop
-  # tmp is just a number but it functions as an array  
-  # ???
-  tmp <- 1L 
-
+  tmp <- vector() 
   idx <- 1L
   for (i in id) {
     buf <- read.csv(files[i], head=TRUE, sep=",")
@@ -24,16 +31,17 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
       #cat ("i=",i," j=",j," n=",n,"idx=",idx,"\n")
     }
   }
-  mean(tmp, na.rm=TRUE)  
+  return(mean(tmp, na.rm=TRUE))  
 }
 
-dir="/home/bill/lab/specdata"
-p1="sulfate"
-p2="nitrate"
 
-pollutantmean(dir,p1,1:10)
-pollutantmean(dir,p2,70:72)
-pollutantmean(dir,p2,23)
+#dir="/home/bill/lab/specdata"
+#p1="sulfate"
+#p2="nitrate"
+#
+#pollutantmean(dir,p1,1:10)
+#pollutantmean(dir,p2,70:72)
+#pollutantmean(dir,p2,23)
 
 
 ##################################
