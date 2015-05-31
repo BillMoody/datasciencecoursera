@@ -1,10 +1,9 @@
 #!/usr/bin/Rscript
 
-
 setwd("/home/bill/Coursera/r")
 
 rankall <- function(outcome, num = "best" ) {
-  df <- read.csv(file="outcome-of-care-measures.csv", head=TRUE,sep=",",na.strings = "Not Available")
+  df <- read.csv(file="outcome-of-care-measures.csv", head=TRUE,sep=",",na.strings = "Not Available", stringsAsFactors=FALSE)
 
   df <- df[ order(df$State), ]
 
@@ -20,11 +19,13 @@ rankall <- function(outcome, num = "best" ) {
   }
 
   names(df)[idx] <- "Rate"
-  names(df)[2] <- "Name"
+  names(df)[2] <- "Hospital"
 
 
   ## Check that state and outcome are valid
   states <- unique(df$State)
+  v_state <- vector()
+  v_hosp  <- vector()
 
   for (state in states) {
     buf <- df[which(df$State == state), ]
@@ -39,18 +40,16 @@ rankall <- function(outcome, num = "best" ) {
       rank <- num
     }
 
-    buf <- buf[ order(buf$Rate, buf$Name), ]
-    #print (buf) 
+    buf <- buf[ order(buf$Rate, buf$Hospital), ]
     buf <- buf[rank,]
-    buf <- data.frame(state, buf$Name)
-    print (buf)
+    v_state <- append(v_state, state)
+    v_hosp  <- append(v_hosp, buf$Hospital) 
   }
-}
 
+    return (data.frame(state = v_state, hospital = v_hosp))
+}
 
 #rankall("heart attack", 20)
 #rankall("pneumonia", "worst")
 #rankall("heart failure", 1)
-
-
 
