@@ -30,7 +30,10 @@ corr <- function(directory, threshold = 0) {
   if (length(tmp) > 0) {
     return (tmp)
   } else {
-    return (0)
+     # this returns a vector with length 1
+     # return (0)
+     # We need a vector with length 0
+     return ( vector() )
   } 
 }
 
