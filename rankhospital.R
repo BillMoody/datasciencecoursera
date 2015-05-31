@@ -40,8 +40,8 @@ rankhospital <- function(state, outcome, num = "best" ) {
      rank <- num
   }
 
-  buf <- buf[rank,]
-  print (buf)
+  buf <- as.matrix(buf[rank,1])
+  buf
 }
 
 to_char <- function (x) {
@@ -49,7 +49,7 @@ to_char <- function (x) {
 }
 
 #rankhospital("TX", "heart failure", 4)
-#rankhospital("MD", "heart attack", "worst")
+rankhospital("MD", "heart attack", "worst")
 #rankhospital("MN", "heart attack", 5000)
 
 
